@@ -3,33 +3,21 @@ const { createApp } = Vue;
 createApp({
     data() {
         return {
-            ListaNuo: '',
-            Lista: [
-                { 
-                    task: "Comprare il pane", 
-                    fatto: false
-                },
-                { 
-                    task: "Portare in giro i cani", 
-                    compito: false
-                },
-                { 
-                    task: "Comprare un nuovo computer che questo fra poco esplode", 
-                    fatto: false
-                }
-            ]
+            emails: [],
         }
     },
-    methods: {
-        ListaAgg() {
-            if (this.ListaNuo !== '' && this.ListaNuo.length > 2) {
-                this.Lista.unshift({task: this.ListaNuo, fatto: false});
-                this.ListaNuo = '';
-            }
-        },
-
-        ListaDel(index) {
-            this.Lista.splice(index, 1);
+    mounted() {
+        for (let i = 0; i < 10; i++) {
+            axios.get('https://flynn.boolean.careers/exercises/api/random/mail')
+            
+            .then(listemail => {
+                const result = listemail.response.data;
+                this.emails.push(result);
+            });
         }
+        
     }
+    
 }).mount('.prisultato');
+
+console.log("giusto");
